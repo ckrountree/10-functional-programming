@@ -36,7 +36,7 @@ When you are finished with lab, follow these steps to submit your work. Create o
 
 ---
 
-## Feature Tasks  
+## Feature Tasks
 
 1. Let's make sure each one of our scripts are properly enclosed. Wrap the contents of article.js in an IIFE, just like articleView.js has been. Set up your IIFE so it receives a parameter to which it can attach behavior.  
 
