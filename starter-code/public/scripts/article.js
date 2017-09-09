@@ -65,29 +65,49 @@ var app = app || {};
 
   // DONE TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return Article.all.map(ele.body.split(" ").length()).reduce( function( sum, value) {
+    Article.all.map(function(ele){
+      return ele.body.split(" ").length();
+    }).reduce( function( sum, value) {
       return sum + value;
     }, 0 );
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
+  //DONE TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names. You will
   // probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
+    return Article.all.map(function(ele){
+      return ele.author; 
+    }).reduce(function(ele, value){
+      if(!value.includes(ele)){
+        return ele;
+      }
+    }, []);
   };
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
-    // TODO: Transform each author string into an object with properties for
-    // the author's name, as well as the total number of words across all articles
-    // written by the specified author.
-    // HINT: This .map should be setup to return an object literal with two properties.
-    // The first property should be pretty straightforward, but you will need to chain
-    // some combination of filter, map, and reduce to get the value for the second
-    // property.
-
+      // TODO DONE: Transform each author string into an object with properties for
+      // the author's name, as well as the total number of words across all articles
+      // written by the specified author.
+      // HINT: This .map should be setup to return an object literal with two properties.
+      // The first property should be pretty straightforward, but you will need to chain
+      // some combination of filter, map, and reduce to get the value for the second
+      // property.
+      {
+       name: author,
+       wordCount: Article.all.filter(function (article) {
+          return article.author === author;
+        }).map(function (ele) {
+          return ele.body.split(" ").length();
+        }).reduce(function (sum, value) {
+          return sum + value;
+        }, 0)
+      };
+      
     })
-  };
+
+  }
+  
 
   Article.truncateTable = callback => {
     $.ajax({
